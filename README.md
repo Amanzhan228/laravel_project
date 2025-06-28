@@ -31,7 +31,7 @@ Tailwind CSS
 bash
 Copy
 Edit
-git clone https://github.com/your-username/laravel_project.git
+git clone https://github.com/Amanzhan228/laravel_project.git
 cd laravel_project
 
 # Install PHP dependencies
