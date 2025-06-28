@@ -1,15 +1,20 @@
-<!-- resources/views/tasks/edit.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('tasks.update', $task) }}" method="POST">
+    <h2>Edit Task</h2>
+
+    <form action="{{ route('tasks.update', $task->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="mb-3">
-            <label for="title" class="form-label">Edit Task Title</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ $task->title }}" required>
-            @error('title') <div class="text-danger">{{ $message }}</div> @enderror
-        </div>
-        <button class="btn btn-primary">Update</button>
+
+        <label for="title">Title:</label><br>
+        <input type="text" name="title" id="title" value="{{ $task->title }}" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea name="description" required>{{ old('description', $task->description ?? '') }}</textarea>
+
+        <button type="submit">Update</button>
     </form>
+
+    <a href="{{ route('tasks.index') }}">Back</a>
 @endsection

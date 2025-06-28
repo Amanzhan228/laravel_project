@@ -1,21 +1,25 @@
-<!-- resources/views/tasks/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>All Tasks</h1>
+    <h1>Tasks</h1>
 
-        @if ($tasks->isEmpty())
-            <p>No tasks yet.</p>
-        @else
-            <ul>
-                @foreach ($tasks as $task)
-                    <li>{{ $task->title }}</li>
-                @endforeach
-            </ul>
-        @endif
+    <a href="{{ route('tasks.create') }}">+ New Task</a>
 
-        <a href="{{ route('tasks.create') }}">Create new task</a>
-    </div>
+    <ul>
+        @foreach ($tasks as $task)
+            <li>
+                <strong>{{ $task->title }}</strong><br>
+                {{ $task->description }}<br>
+
+                <a href="{{ route('tasks.edit', $task->id) }}">Edit</a>
+
+                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            <hr>
+        @endforeach
+    </ul>
 @endsection
