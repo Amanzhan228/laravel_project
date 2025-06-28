@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest()->get();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -24,14 +24,8 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        Task::create($request->all());
-
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
-    }
-
-    public function show(Task $task)
-    {
-        return view('tasks.show', compact('task'));
+        Task::create($request->only('title'));
+        return redirect()->route('tasks.index')->with('success', 'Task created.');
     }
 
     public function edit(Task $task)
@@ -45,15 +39,13 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        $task->update($request->all());
-
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+        $task->update($request->only('title'));
+        return redirect()->route('tasks.index')->with('success', 'Task updated.');
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
-
-        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+        return redirect()->route('tasks.index')->with('success', 'Task deleted.');
     }
 }
