@@ -7,7 +7,8 @@
         <div class="mb-3">
             <label for="title" class="form-label">Task Title</label>
             <input type="text" name="title" id="title" class="form-control" required>
-            @error('title') <div class="text-danger">{{ $message }}</div> @enderror
+            @error('title')
+            <div class="text-danger">{{ $message }}</div> @enderror
         </div>
         <button class="btn btn-success">Create</button>
     </form>
